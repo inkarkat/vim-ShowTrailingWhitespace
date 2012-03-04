@@ -8,10 +8,18 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"	002	02-Mar-2012	Introduce b:ShowTrailingWhitespace_ExtraPattern
+"				to be able to avoid some matches (e.g. a <Space>
+"				in column 1 in a buffer with filetype=diff) and
+"				ShowTrailingWhitespace#SetLocalExtraPattern() to
+"				set it.
 "	001	25-Feb-2012	file creation
+let s:save_cpo = &cpo
+set cpo&vim
 
 function! s:UpdateMatch( isInsertMode )
-    let l:pattern = (a:isInsertMode ? '\s\+\%#\@<!$' : '\s\+$')
+    let l:pattern = (exists('b:ShowTrailingWhitespace_ExtraPattern') ? b:ShowTrailingWhitespace_ExtraPattern : '') .
+    \	(a:isInsertMode ? '\s\+\%#\@<!$' : '\s\+$')
     if exists('w:ShowTrailingWhitespace_Match')
 	call matchdelete(w:ShowTrailingWhitespace_Match)
 	call matchadd('ShowTrailingWhitespace', pattern, -1, w:ShowTrailingWhitespace_Match)
@@ -71,6 +79,11 @@ function! ShowTrailingWhitespace#Reset()
 endfunction
 function! ShowTrailingWhitespace#Toggle( isGlobal )
     call ShowTrailingWhitespace#Set(! (a:isGlobal ? g:ShowTrailingWhitespace : ShowTrailingWhitespace#IsSet()), a:isGlobal)
+endfunction
+
+function! ShowTrailingWhitespace#SetLocalExtraPattern( pattern )
+    let b:ShowTrailingWhitespace_ExtraPattern = a:pattern
+    call s:DetectAll()
 endfunction
 
 " vim: set ts=8 sts=4 sw=4 noexpandtab ff=unix fdm=syntax :
