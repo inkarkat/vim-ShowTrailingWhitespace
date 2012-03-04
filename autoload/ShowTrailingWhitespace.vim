@@ -21,18 +21,16 @@ function! ShowTrailingWhitespace#Pattern( isInsertMode )
     return (exists('b:ShowTrailingWhitespace_ExtraPattern') ? b:ShowTrailingWhitespace_ExtraPattern : '') .
     \	(a:isInsertMode ? '\s\+\%#\@<!$' : '\s\+$')
 endfunction
-function! s:HlGroupName()
-    let l:HlGroupFunc = (exists('b:ShowTrailingWhitespace_HlGroupFunc') ? b:ShowTrailingWhitespace_HlGroupFunc : g:ShowTrailingWhitespace_HlGroupFunc)
-    let l:hlGroupName = (empty(l:HlGroupFunc) ? '' : call(l:HlGroupFunc, []))
-    return (empty(l:hlGroupName) ? 'ShowTrailingWhitespace' : l:hlGroupName)
-endfunction
+let s:HlGroupName = 'ShowTrailingWhitespace'
 function! s:UpdateMatch( isInsertMode )
     let l:pattern = ShowTrailingWhitespace#Pattern(a:isInsertMode)
     if exists('w:ShowTrailingWhitespace_Match')
-	call matchdelete(w:ShowTrailingWhitespace_Match)
-	call matchadd(s:HlGroupName(), pattern, -1, w:ShowTrailingWhitespace_Match)
+	" Info: matchadd() does not consider the 'magic' (it's always on),
+	" 'ignorecase' and 'smartcase' settings.
+	silent! call matchdelete(w:ShowTrailingWhitespace_Match)
+	call matchadd(s:HlGroupName, pattern, -1, w:ShowTrailingWhitespace_Match)
     else
-	let w:ShowTrailingWhitespace_Match =  matchadd(s:HlGroupName(), pattern)
+	let w:ShowTrailingWhitespace_Match =  matchadd(s:HlGroupName, pattern)
     endif
 endfunction
 function! s:DeleteMatch()
