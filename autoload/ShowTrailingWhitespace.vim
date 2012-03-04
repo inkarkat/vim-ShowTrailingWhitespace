@@ -17,9 +17,12 @@
 let s:save_cpo = &cpo
 set cpo&vim
 
-function! s:UpdateMatch( isInsertMode )
-    let l:pattern = (exists('b:ShowTrailingWhitespace_ExtraPattern') ? b:ShowTrailingWhitespace_ExtraPattern : '') .
+function! ShowTrailingWhitespace#Pattern( isInsertMode )
+    return (exists('b:ShowTrailingWhitespace_ExtraPattern') ? b:ShowTrailingWhitespace_ExtraPattern : '') .
     \	(a:isInsertMode ? '\s\+\%#\@<!$' : '\s\+$')
+endfunction
+function! s:UpdateMatch( isInsertMode )
+    let l:pattern = ShowTrailingWhitespace#Pattern(a:isInsertMode)
     if exists('w:ShowTrailingWhitespace_Match')
 	call matchdelete(w:ShowTrailingWhitespace_Match)
 	call matchadd('ShowTrailingWhitespace', pattern, -1, w:ShowTrailingWhitespace_Match)
@@ -50,9 +53,13 @@ endfunction
 function! ShowTrailingWhitespace#IsSet()
     return (exists('b:ShowTrailingWhitespace') ? b:ShowTrailingWhitespace : g:ShowTrailingWhitespace)
 endfunction
+function! ShowTrailingWhitespace#NotFiltered()
+    let l:Filter = (exists('b:ShowTrailingWhitespace_FilterFunc') ? b:ShowTrailingWhitespace_FilterFunc : g:ShowTrailingWhitespace_FilterFunc)
+    return (empty(l:Filter) ? 1 : call(l:Filter, []))
+endfunction
 
 function! ShowTrailingWhitespace#Detect( isInsertMode )
-    if ShowTrailingWhitespace#IsSet()
+    if ShowTrailingWhitespace#IsSet() && ShowTrailingWhitespace#NotFiltered()
 	call s:UpdateMatch(a:isInsertMode)
     else
 	call s:DeleteMatch()
