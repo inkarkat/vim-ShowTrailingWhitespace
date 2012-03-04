@@ -15,7 +15,7 @@
 "	001	25-Feb-2012	file creation
 
 " Avoid installing twice or when in unsupported Vim version.
-if exists('g:loaded_ShowTrailingWhitespace') || (v:version == 701 && ! exists('*matchadd')) || (v:version < 702)
+if exists('g:loaded_ShowTrailingWhitespace') || (v:version == 701 && ! exists('*matchadd')) || (v:version < 701)
     finish
 endif
 let g:loaded_ShowTrailingWhitespace = 1
@@ -32,10 +32,10 @@ augroup END
 
 highlight def link ShowTrailingWhitespace Error
 
-command! -bar ShowTrailingWhitespaceOn          call ShowTrailingWhitespace#Set(1,1)
-command! -bar ShowTrailingWhitespaceOff         call ShowTrailingWhitespace#Set(0,1)
-command! -bar ShowTrailingWhitespaceBufferOn    call ShowTrailingWhitespace#Set(1,0)
-command! -bar ShowTrailingWhitespaceBufferOff   call ShowTrailingWhitespace#Set(0,0)
-command! -bar ShowTrailingWhitespaceBufferClear call ShowTrailingWhitespace#Reset()
+"command! -bar ShowTrailingWhitespaceOn          call ShowTrailingWhitespace#Set(1,1)
+"command! -bar ShowTrailingWhitespaceOff         call ShowTrailingWhitespace#Set(0,1)
+"command! -bar ShowTrailingWhitespaceBufferOn    call ShowTrailingWhitespace#Set(1,0)
+"command! -bar ShowTrailingWhitespaceBufferOff   call ShowTrailingWhitespace#Set(0,0)
+"command! -bar ShowTrailingWhitespaceBufferClear call ShowTrailingWhitespace#Reset()
 
 " vim: set ts=8 sts=4 sw=4 noexpandtab ff=unix fdm=syntax :
