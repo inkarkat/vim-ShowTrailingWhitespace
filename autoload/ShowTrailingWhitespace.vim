@@ -21,13 +21,18 @@ function! ShowTrailingWhitespace#Pattern( isInsertMode )
     return (exists('b:ShowTrailingWhitespace_ExtraPattern') ? b:ShowTrailingWhitespace_ExtraPattern : '') .
     \	(a:isInsertMode ? '\s\+\%#\@<!$' : '\s\+$')
 endfunction
+function! s:HlGroupName()
+    let l:HlGroupFunc = (exists('b:ShowTrailingWhitespace_HlGroupFunc') ? b:ShowTrailingWhitespace_HlGroupFunc : g:ShowTrailingWhitespace_HlGroupFunc)
+    let l:hlGroupName = (empty(l:HlGroupFunc) ? '' : call(l:HlGroupFunc, []))
+    return (empty(l:hlGroupName) ? 'ShowTrailingWhitespace' : l:hlGroupName)
+endfunction
 function! s:UpdateMatch( isInsertMode )
     let l:pattern = ShowTrailingWhitespace#Pattern(a:isInsertMode)
     if exists('w:ShowTrailingWhitespace_Match')
 	call matchdelete(w:ShowTrailingWhitespace_Match)
-	call matchadd('ShowTrailingWhitespace', pattern, -1, w:ShowTrailingWhitespace_Match)
+	call matchadd(s:HlGroupName(), pattern, -1, w:ShowTrailingWhitespace_Match)
     else
-	let w:ShowTrailingWhitespace_Match =  matchadd('ShowTrailingWhitespace', pattern)
+	let w:ShowTrailingWhitespace_Match =  matchadd(s:HlGroupName(), pattern)
     endif
 endfunction
 function! s:DeleteMatch()
@@ -53,13 +58,13 @@ endfunction
 function! ShowTrailingWhitespace#IsSet()
     return (exists('b:ShowTrailingWhitespace') ? b:ShowTrailingWhitespace : g:ShowTrailingWhitespace)
 endfunction
-function! ShowTrailingWhitespace#NotFiltered()
+function! s:NotFiltered()
     let l:Filter = (exists('b:ShowTrailingWhitespace_FilterFunc') ? b:ShowTrailingWhitespace_FilterFunc : g:ShowTrailingWhitespace_FilterFunc)
     return (empty(l:Filter) ? 1 : call(l:Filter, []))
 endfunction
 
 function! ShowTrailingWhitespace#Detect( isInsertMode )
-    if ShowTrailingWhitespace#IsSet() && ShowTrailingWhitespace#NotFiltered()
+    if ShowTrailingWhitespace#IsSet() && s:NotFiltered()
 	call s:UpdateMatch(a:isInsertMode)
     else
 	call s:DeleteMatch()
@@ -69,10 +74,10 @@ endfunction
 " The showing of trailing whitespace be en-/disabled globally or only for a particular buffer.
 function! ShowTrailingWhitespace#Set( isTurnOn, isGlobal )
     if a:isGlobal
-	let g:ShowTrailingWhitespace = (!! a:isTurnOn)
+	let g:ShowTrailingWhitespace = a:isTurnOn
 	call s:DetectAll()
     else
-	let b:ShowTrailingWhitespace = (!! a:isTurnOn)
+	let b:ShowTrailingWhitespace = a:isTurnOn
 	if a:isTurnOn
 	    call s:UpdateMatch(0)
 	else
