@@ -2,6 +2,7 @@
 "
 " DEPENDENCIES:
 "   - ShowTrailingWhitespace.vim autoload script.
+"   - ShowTrailingWhitespace/Filter.vim autoload script.
 "
 " Copyright: (C) 2012 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
@@ -23,6 +24,21 @@ let g:loaded_ShowTrailingWhitespace = 1
 if ! exists('g:ShowTrailingWhitespace')
     let g:ShowTrailingWhitespace = 1
 endif
+if ! exists('g:ShowTrailingWhitespace_FilterFunc')
+    if v:version < 702
+	" Vim 7.0/1 need preloading of functions referenced in Funcrefs.
+	runtime autoload/ShowTrailingWhitespace/Filter.vim
+    endif
+    let g:ShowTrailingWhitespace_FilterFunc = function('ShowTrailingWhitespace#Filter#Default')
+endif
+if ! exists('g:ShowTrailingWhitespace_HlGroupFunc')
+    if v:version < 702
+	" Vim 7.0/1 need preloading of functions referenced in Funcrefs.
+	runtime autoload/ShowTrailingWhitespace/HlGroup.vim
+    endif
+    let g:ShowTrailingWhitespace_HlGroupFunc = function('ShowTrailingWhitespace#HlGroup#Default')
+endif
+
 
 augroup ShowTrailingWhitespace
     autocmd!
