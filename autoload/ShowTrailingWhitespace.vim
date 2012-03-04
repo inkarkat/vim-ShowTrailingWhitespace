@@ -1,4 +1,4 @@
-" ShowTrailingWhitespace.vim: Detect and delete unwanted whitespace at the end of lines.
+" ShowTrailingWhitespace.vim: Detect unwanted whitespace at the end of lines.
 "
 " DEPENDENCIES:
 "
