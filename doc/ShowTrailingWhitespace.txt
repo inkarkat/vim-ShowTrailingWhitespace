@@ -1,0 +1,88 @@
+*ShowTrailingWhitespace.txt*	Detect and delete unwanted whitespace at the end of lines.
+
+		  SHOW TRAILING WHITESPACE    by Ingo Karkat
+						  *ShowTrailingWhitespace.vim*
+description			|ShowTrailingWhitespace-description|
+usage				|ShowTrailingWhitespace-usage|
+installation			|ShowTrailingWhitespace-installation|
+configuration			|ShowTrailingWhitespace-configuration|
+integration			|ShowTrailingWhitespace-integration|
+limitations			|ShowTrailingWhitespace-limitations|
+known problems			|ShowTrailingWhitespace-known-problems|
+todo				|ShowTrailingWhitespace-todo|
+history				|ShowTrailingWhitespace-history|
+
+==============================================================================
+DESCRIPTION				  *ShowTrailingWhitespace-description*
+
+This plugin ...
+
+HOW IT WORKS								     *
+
+RELATED WORKS								     *
+
+- smartmatcheol.vim (vimscript #2635)
+- trailing-whitespace (vimscript #3201)
+- bad-whitespace (vimscript #3735)
+- Trailer Trash (vimscript #3938)
+- http://vim.wikia.com/wiki/Highlight_unwanted_spaces
+
+==============================================================================
+USAGE						*ShowTrailingWhitespace-usage*
+								 *<Leader>Foo*
+<Leader>Foo		Description here. 
+							  *:ShowTrailingWhitespace*
+:ShowTrailingWhitespace	Description here. 
+
+==============================================================================
+INSTALLATION				 *ShowTrailingWhitespace-installation*
+
+This script is packaged as a |vimball|. If you have the "gunzip" decompressor
+in your PATH, simply edit the *.vba.gz package in Vim; otherwise, decompress
+the archive first, e.g. using WinZip. Inside Vim, install by sourcing the
+vimball or via the |:UseVimball| command. >
+    vim ShowTrailingWhitespace.vba.gz
+    :so %
+To uninstall, use the |:RmVimball| command. 
+
+DEPENDENCIES				 *ShowTrailingWhitespace-dependencies*
+
+- Requires Vim 7.0 or higher. 
+
+==============================================================================
+CONFIGURATION				*ShowTrailingWhitespace-configuration*
+
+For a permanent configuration, put the following commands into your |vimrc|: 
+
+						*g:ShowTrailingWhitespace_MyOption*
+To change the default TODO from FOO to BAR, use: >
+    let g:ShowTrailingWhitespace_MyOption = 'BAR'
+<
+==============================================================================
+INTEGRATION				  *ShowTrailingWhitespace-integration*
+
+==============================================================================
+LIMITATIONS				  *ShowTrailingWhitespace-limitations*
+
+KNOWN PROBLEMS			       *ShowTrailingWhitespace-known-problems*
+
+TODO						 *ShowTrailingWhitespace-todo*
+
+IDEAS						*ShowTrailingWhitespace-ideas*
+
+==============================================================================
+HISTORY					      *ShowTrailingWhitespace-history*
+
+1.00	25-Feb-2012
+First published version. 
+
+0.01	25-Feb-2012
+Started development. 
+
+==============================================================================
+Copyright: (C) 2012 Ingo Karkat
+The VIM LICENSE applies to this script; see |copyright|. 
+
+Maintainer:	Ingo Karkat <ingo@karkat.de>
+==============================================================================
+ vim:tw=78:ts=8:ft=help:norl:
