@@ -8,6 +8,9 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"	003	05-Mar-2012	Introduce g:ShowTrailingWhitespace_FilterFunc to
+"				disable highlighting for non-persisted and
+"				nomodifiable buffers.
 "	002	02-Mar-2012	Introduce b:ShowTrailingWhitespace_ExtraPattern
 "				to be able to avoid some matches (e.g. a <Space>
 "				in column 1 in a buffer with filetype=diff) and
@@ -76,11 +79,7 @@ function! ShowTrailingWhitespace#Set( isTurnOn, isGlobal )
 	call s:DetectAll()
     else
 	let b:ShowTrailingWhitespace = a:isTurnOn
-	if a:isTurnOn
-	    call s:UpdateMatch(0)
-	else
-	    call s:DeleteMatch()
-	endif
+	call ShowTrailingWhitespace#Detect(0)
     endif
 endfunction
 function! ShowTrailingWhitespace#Reset()
