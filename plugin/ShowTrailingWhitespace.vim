@@ -21,6 +21,8 @@ if exists('g:loaded_ShowTrailingWhitespace') || (v:version == 701 && ! exists('*
 endif
 let g:loaded_ShowTrailingWhitespace = 1
 
+"- configuration ---------------------------------------------------------------
+
 if ! exists('g:ShowTrailingWhitespace')
     let g:ShowTrailingWhitespace = 1
 endif
@@ -31,20 +33,18 @@ if ! exists('g:ShowTrailingWhitespace_FilterFunc')
     endif
     let g:ShowTrailingWhitespace_FilterFunc = function('ShowTrailingWhitespace#Filter#Default')
 endif
-if ! exists('g:ShowTrailingWhitespace_HlGroupFunc')
-    if v:version < 702
-	" Vim 7.0/1 need preloading of functions referenced in Funcrefs.
-	runtime autoload/ShowTrailingWhitespace/HlGroup.vim
-    endif
-    let g:ShowTrailingWhitespace_HlGroupFunc = function('ShowTrailingWhitespace#HlGroup#Default')
-endif
 
+
+"- autocmds --------------------------------------------------------------------
 
 augroup ShowTrailingWhitespace
     autocmd!
     autocmd BufWinEnter,InsertLeave * call ShowTrailingWhitespace#Detect(0)
     autocmd InsertEnter             * call ShowTrailingWhitespace#Detect(1)
 augroup END
+
+
+"- highlight groups ------------------------------------------------------------
 
 highlight def link ShowTrailingWhitespace Error
 
