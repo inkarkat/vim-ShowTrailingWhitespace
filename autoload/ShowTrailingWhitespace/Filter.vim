@@ -8,10 +8,23 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"	002     06-Mar-2012     Modularize conditionals.
+"				Also do not normally show 'binary' buffers.
 "	001	05-Mar-2012	file creation
 
+function! s:IsPersistedBuffer()
+    return ! (&l:buftype ==# 'nofile' || &l:buftype ==# 'nowrite')
+endfunction
+function! s:IsScratchBuffer()
+    return (bufname('') =~# '\[Scratch]')
+endfunction
+function! s:IsForcedShow()
+    return (ShowTrailingWhitespace#IsSet() == 2)
+endfunction
+
 function! ShowTrailingWhitespace#Filter#Default()
-    return ! ((&l:buftype ==# 'nofile' || &l:buftype ==# 'nowrite') && bufname('') !~# '\[Scratch]') && (&l:modifiable || ShowTrailingWhitespace#IsSet() == 2)
+    let l:isShownNormally = &l:modifiable && ! &l:binary && (s:IsPersistedBuffer() || s:IsScratchBuffer())
+    return l:isShownNormally || s:IsForcedShow()
 endfunction
 
 " vim: set ts=8 sts=4 sw=4 noexpandtab ff=unix fdm=syntax :
