@@ -38,8 +38,12 @@ However, most of them use the older :match command and are not as flexible.
 - Trailer Trash (vimscript #3938) uses :match.
 
 Many plugins also come with a command to strip off the trailing whitespace;
-this plugin separates this into the companion*DeleteTrailingWhitespace.vim*
-plugin.
+this plugin separates this into the companion |DeleteTrailingWhitespace.vim|
+plugin (vimscript #0000). This can even remove the trailing whitespace
+automatically on each write.
+
+To quickly locate the occurrences of trailing whitespace, you can use the
+companion |JumpToTrailingWhitespace.vim| plugin (vimscript #0000).
 
 ==============================================================================
 USAGE						*ShowTrailingWhitespace-usage*
@@ -49,7 +53,7 @@ may want to selectively enable / disable this for certain filetypes, or files
 in a particular directory hierarchy, or toggle this on demand. Since it's
 difficult to accommodate all these demands with short and easy mappings and
 commands, this plugin does not define any of them, and leaves it to you to
-tailor the plugin to your needs. See *ShowTrailingWhitespace-configuration*
+tailor the plugin to your needs. See |ShowTrailingWhitespace-configuration|
 below.
 
 ==============================================================================
