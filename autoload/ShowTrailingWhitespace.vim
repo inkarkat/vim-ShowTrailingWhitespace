@@ -8,6 +8,8 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"	004     06-Mar-2012     Toggle to value 2 when enabled but the buffer is
+"				filtered from showing trailing whitespace.
 "	003	05-Mar-2012	Introduce g:ShowTrailingWhitespace_FilterFunc to
 "				disable highlighting for non-persisted and
 "				nomodifiable buffers.
@@ -59,13 +61,13 @@ endfunction
 function! ShowTrailingWhitespace#IsSet()
     return (exists('b:ShowTrailingWhitespace') ? b:ShowTrailingWhitespace : g:ShowTrailingWhitespace)
 endfunction
-function! s:NotFiltered()
+function! ShowTrailingWhitespace#NotFiltered()
     let l:Filter = (exists('b:ShowTrailingWhitespace_FilterFunc') ? b:ShowTrailingWhitespace_FilterFunc : g:ShowTrailingWhitespace_FilterFunc)
     return (empty(l:Filter) ? 1 : call(l:Filter, []))
 endfunction
 
 function! ShowTrailingWhitespace#Detect( isInsertMode )
-    if ShowTrailingWhitespace#IsSet() && s:NotFiltered()
+    if ShowTrailingWhitespace#IsSet() && ShowTrailingWhitespace#NotFiltered()
 	call s:UpdateMatch(a:isInsertMode)
     else
 	call s:DeleteMatch()
@@ -87,7 +89,17 @@ function! ShowTrailingWhitespace#Reset()
     call ShowTrailingWhitespace#Detect(0)
 endfunction
 function! ShowTrailingWhitespace#Toggle( isGlobal )
-    call ShowTrailingWhitespace#Set(! (a:isGlobal ? g:ShowTrailingWhitespace : ShowTrailingWhitespace#IsSet()), a:isGlobal)
+    if a:isGlobal
+	let l:newState = ! g:ShowTrailingWhitespace
+    else
+	if ShowTrailingWhitespace#NotFiltered()
+	    let l:newState = ! ShowTrailingWhitespace#IsSet()
+	else
+	    let l:newState = (ShowTrailingWhitespace#IsSet() > 1 ? 0 : 2)
+	endif
+    endif
+
+    call ShowTrailingWhitespace#Set(l:newState, a:isGlobal)
 endfunction
 
 function! ShowTrailingWhitespace#SetLocalExtraPattern( pattern )
