@@ -17,12 +17,11 @@ DESCRIPTION				  *ShowTrailingWhitespace-description*
 
 This plugin highlights whitespace at the end of each line (except when typing
 at the end of a line). It uses the matchadd()-function, therefore doesn't
-interfere with syntax highlighting and leaves the :match for other uses.
+interfere with syntax highlighting and leaves the |:match| command for other
+uses.
 Highlighting can be switched on/off globally and for individual buffers. The
 plugin comes with exceptions for certain filetypes, where certain lines can /
 must include trailing whitespace; additional patterns can be configured.
-
-HOW IT WORKS								     *
 
 RELATED WORKS								     *
 
@@ -36,14 +35,16 @@ However, most of them use the older :match command and are not as flexible.
 - bad-whitespace (vimscript #3735) uses :match, allows on/off/toggling via
   commands.
 - Trailer Trash (vimscript #3938) uses :match.
+- DynamicSigns (vimscript #3965) can show whitespace errors (also mixed
+  indent) in the sign column.
 
 Many plugins also come with a command to strip off the trailing whitespace;
 this plugin separates this into the companion |DeleteTrailingWhitespace.vim|
-plugin (vimscript #0000). This can even remove the trailing whitespace
+plugin (vimscript #3967), which can even remove the trailing whitespace
 automatically on each write.
 
 To quickly locate the occurrences of trailing whitespace, you can use the
-companion |JumpToTrailingWhitespace.vim| plugin (vimscript #0000).
+companion |JumpToTrailingWhitespace.vim| plugin (vimscript #3968).
 
 ==============================================================================
 USAGE						*ShowTrailingWhitespace-usage*
@@ -114,10 +115,6 @@ You can also define a quick mapping to toggle the highlighting (here, locally;
 for global toggling use ShowTrailingWhitespace#Toggle(1): >
     nnoremap <silent> <Leader>t$ :<C-u>call ShowTrailingWhitespace#Toggle(0)<Bar>echo (ShowTrailingWhitespace#IsSet() ? 'Show trailing whitespace' : 'Not showing trailing whitespace')<CR>
 <
-					    *ShowTrailingWhitespace-functions*
-The ShowTrailingWhitespace#IsSet() function can be used to query the on/off
-status for the current buffer, e.g. for use in the |statusline|.
-
 					   *ShowTrailingWhitespace-exceptions*
 For some filetypes, in certain places, trailing whitespace is part of the
 syntax or even mandatory. If you don't want to be bothered by these showing up
@@ -130,6 +127,13 @@ trailing whitespace. For a certain filetype, this is best set in a file
 
 ==============================================================================
 INTEGRATION				  *ShowTrailingWhitespace-integration*
+					    *ShowTrailingWhitespace-functions*
+The ShowTrailingWhitespace#IsSet() function can be used to query the on/off
+status for the current buffer, e.g. for use in the |statusline|.
+
+To obtain the pattern for matching trailing whitespace, including any
+|ShowTrailingWhitespace-exceptions|, you can use the function
+ShowTrailingWhitespace#Pattern(0).
 
 ==============================================================================
 LIMITATIONS				  *ShowTrailingWhitespace-limitations*
@@ -143,7 +147,7 @@ IDEAS						*ShowTrailingWhitespace-ideas*
 ==============================================================================
 HISTORY					      *ShowTrailingWhitespace-history*
 
-1.00	05-Mar-2012
+1.00	16-Mar-2012
 First published version.
 
 0.01	25-Feb-2012
