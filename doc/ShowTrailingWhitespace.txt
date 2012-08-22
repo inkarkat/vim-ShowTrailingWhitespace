@@ -79,7 +79,7 @@ For a permanent configuration, put the following commands into your |vimrc|:
 
 					       *ShowTrailingWhitespace-colors*
 To change the highlighting colors: >
-    highlight ShowTrailingWhitespace Error ctermbg=Red guibg=Red
+    highlight ShowTrailingWhitespace ctermbg=Red guibg=Red
 <
 						    *g:ShowTrailingWhitespace*
 By default, highlighting is enabled for all buffers, and you can (selectively)
