@@ -8,7 +8,7 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
-"	002     06-Mar-2012     Modularize conditionals.
+"   1.00.002	06-Mar-2012	Modularize conditionals.
 "				Also do not normally show 'binary' buffers.
 "	001	05-Mar-2012	file creation
 
