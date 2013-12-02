@@ -63,10 +63,10 @@ below.
 INSTALLATION				 *ShowTrailingWhitespace-installation*
 
 This script is packaged as a |vimball|. If you have the "gunzip" decompressor
-in your PATH, simply edit the *.vba.gz package in Vim; otherwise, decompress
+in your PATH, simply edit the *.vmb.gz package in Vim; otherwise, decompress
 the archive first, e.g. using WinZip. Inside Vim, install by sourcing the
 vimball or via the |:UseVimball| command. >
-    vim ShowTrailingWhitespace.vba.gz
+    vim ShowTrailingWhitespace*.vmb.gz
     :so %
 To uninstall, use the |:RmVimball| command.
 
@@ -149,6 +149,9 @@ IDEAS						*ShowTrailingWhitespace-ideas*
 ==============================================================================
 HISTORY					      *ShowTrailingWhitespace-history*
 
+1.01	RELEASEME
+- Minor: Also exclude quickfix and help buffers from detection.
+
 1.00	16-Mar-2012
 First published version.
 
@@ -156,7 +159,7 @@ First published version.
 Started development.
 
 ==============================================================================
-Copyright: (C) 2012 Ingo Karkat
+Copyright: (C) 2012-2013 Ingo Karkat
 The VIM LICENSE applies to this plugin; see |copyright|.
 
 Maintainer:	Ingo Karkat <ingo@karkat.de>
