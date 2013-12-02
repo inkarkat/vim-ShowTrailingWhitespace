@@ -1,4 +1,5 @@
 autoload/ShowTrailingWhitespace.vim
+autoload/ShowTrailingWhitespace/Filter.vim
 plugin/ShowTrailingWhitespace.vim
 ftplugin/diff_ShowTrailingWhitespace.vim
 ftplugin/mail_ShowTrailingWhitespace.vim
