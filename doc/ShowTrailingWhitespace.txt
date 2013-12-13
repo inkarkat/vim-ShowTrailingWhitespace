@@ -151,6 +151,7 @@ HISTORY					      *ShowTrailingWhitespace-history*
 
 1.01	RELEASEME
 - Minor: Also exclude quickfix and help buffers from detection.
+- Add whitespace exception for the "dosbatch" filetype.
 
 1.00	16-Mar-2012
 First published version.
