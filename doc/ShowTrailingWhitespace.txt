@@ -149,7 +149,7 @@ IDEAS						*ShowTrailingWhitespace-ideas*
 ==============================================================================
 HISTORY					      *ShowTrailingWhitespace-history*
 
-1.01	RELEASEME
+1.01	14-Dec-2013
 - Minor: Also exclude quickfix and help buffers from detection.
 - Add whitespace exception for the "dosbatch" filetype.
 
