@@ -47,6 +47,9 @@ However, most of them use the older :match command and are not as flexible.
 - Trailer Trash (vimscript #3938) uses :match.
 - DynamicSigns (vimscript #3965) can show whitespace errors (also mixed
   indent) in the sign column.
+- better-whitespace (vimscript #4859) can use either :match or :syntax (with
+  the option of excluding the current line), and has a :StripWhitespace
+  command, also automatic triggering for some filetypes.
 
 ==============================================================================
 USAGE						*ShowTrailingWhitespace-usage*
@@ -164,7 +167,7 @@ First published version.
 Started development.
 
 ==============================================================================
-Copyright: (C) 2012-2013 Ingo Karkat
+Copyright: (C) 2012-2014 Ingo Karkat
 The VIM LICENSE applies to this plugin; see |copyright|.
 
 Maintainer:	Ingo Karkat <ingo@karkat.de>
