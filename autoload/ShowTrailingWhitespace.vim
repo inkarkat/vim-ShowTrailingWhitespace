@@ -8,7 +8,7 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
-"	004     06-Mar-2012     Toggle to value 2 when enabled but the buffer is
+"   1.00.004	06-Mar-2012	Toggle to value 2 when enabled but the buffer is
 "				filtered from showing trailing whitespace.
 "	003	05-Mar-2012	Introduce g:ShowTrailingWhitespace_FilterFunc to
 "				disable highlighting for non-persisted and
