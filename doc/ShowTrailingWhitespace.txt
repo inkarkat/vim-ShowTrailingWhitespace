@@ -83,7 +83,7 @@ CONFIGURATION				*ShowTrailingWhitespace-configuration*
 For a permanent configuration, put the following commands into your |vimrc|:
 
 					       *ShowTrailingWhitespace-colors*
-To change the highlighting colors: >
+To change the highlighting colors (do this after any |:colorscheme|): >
     highlight ShowTrailingWhitespace ctermbg=Red guibg=Red
 <
 						    *g:ShowTrailingWhitespace*
