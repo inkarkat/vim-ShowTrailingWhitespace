@@ -155,6 +155,9 @@ HISTORY					      *ShowTrailingWhitespace-history*
 
 1.02	RELEASEME
 - Add whitespace exception for the "markdown" filetype.
+- Make ShowTrailingWhitespace#IsSet() also handle Vim 7.0/1 where the
+  g:ShowTrailingWhitespace variable is not set. Return 0 instead of causing a
+  function abort.
 
 1.01	14-Dec-2013
 - Minor: Also exclude quickfix and help buffers from detection.
