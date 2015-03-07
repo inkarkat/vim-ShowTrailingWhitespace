@@ -158,6 +158,7 @@ HISTORY					      *ShowTrailingWhitespace-history*
 - Make ShowTrailingWhitespace#IsSet() also handle Vim 7.0/1 where the
   g:ShowTrailingWhitespace variable is not set. Return 0 instead of causing a
   function abort.
+- ENH: Keep previous (last accessed) window on :windo.
 
 1.01	14-Dec-2013
 - Minor: Also exclude quickfix and help buffers from detection.
@@ -170,7 +171,7 @@ First published version.
 Started development.
 
 ==============================================================================
-Copyright: (C) 2012-2014 Ingo Karkat
+Copyright: (C) 2012-2015 Ingo Karkat
 The VIM LICENSE applies to this plugin; see |copyright|.
 
 Maintainer:	Ingo Karkat <ingo@karkat.de>
