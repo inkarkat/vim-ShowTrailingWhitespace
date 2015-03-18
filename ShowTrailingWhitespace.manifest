@@ -4,4 +4,5 @@ plugin/ShowTrailingWhitespace.vim
 ftplugin/diff_ShowTrailingWhitespace.vim
 ftplugin/dosbatch_ShowTrailingWhitespace.vim
 ftplugin/mail_ShowTrailingWhitespace.vim
+ftplugin/markdown_ShowTrailingWhitespace.vim
 doc/ShowTrailingWhitespace.txt
