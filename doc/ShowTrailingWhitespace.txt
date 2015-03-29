@@ -96,8 +96,10 @@ disabled: >
 In addition to toggling the highlighting on/off via
 |g:ShowTrailingWhitespace|, the decision can also be influenced by buffer
 settings or the environment. By default, buffers that are not persisted to
-disk (unless they are scratch buffers) or not modifiable (like user interface
-windows from various plugins) are skipped. You can disable this filtering: >
+disk (unless they are explicitly marked as "[Scratch]" buffers) or not
+modifiable (like user interface windows from various plugins, but note that
+clearing the option is usually done too late) are skipped. You can disable
+this filtering: >
     let g:ShowTrailingWhitespace_FilterFunc = ''
 or install your own custom filter function instead: >
     let g:ShowTrailingWhitespace_FilterFunc = function('MyFunc')
@@ -152,6 +154,10 @@ IDEAS						*ShowTrailingWhitespace-ideas*
 
 ==============================================================================
 HISTORY					      *ShowTrailingWhitespace-history*
+
+1.03	19-Mar-2015
+- Exempt the "unite" filetype used by the Unite plugin (vimscript #3396).
+  Thanks to Fernando "Firef0x" G.P. da Silva for the patch.
 
 1.02	08-Mar-2015
 - Add whitespace exception for the "markdown" filetype.
