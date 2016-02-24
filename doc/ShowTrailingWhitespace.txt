@@ -50,6 +50,8 @@ However, most of them use the older :match command and are not as flexible.
 - better-whitespace (vimscript #4859) can use either :match or :syntax (with
   the option of excluding the current line), and has a :StripWhitespace
   command, also automatic triggering for some filetypes.
+- ShowSpaces (vimscript #5148) highlights spaces inside indentation, per
+  buffer / filetype.
 
 ==============================================================================
 USAGE						*ShowTrailingWhitespace-usage*
