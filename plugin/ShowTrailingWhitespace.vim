@@ -10,7 +10,7 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
-"	002	26-Feb-2012	Move functions to autoload script.
+"   1.00.002	26-Feb-2012	Move functions to autoload script.
 "				Rewrite example commands with new autoload
 "				functions.
 "	001	25-Feb-2012	file creation
