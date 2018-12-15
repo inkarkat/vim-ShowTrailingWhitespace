@@ -2,29 +2,10 @@
 "
 " DEPENDENCIES:
 "
-" Copyright: (C) 2012-2015 Ingo Karkat
+" Copyright: (C) 2012-2018 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
-"
-" REVISION	DATE		REMARKS
-"   1.02.006	30-Jan-2015	ENH: Keep previous (last accessed) window on
-"				:windo.
-"   1.02.005	22-Jul-2014	Make ShowTrailingWhitespace#IsSet() also handle
-"				Vim 7.0/1 where the g:ShowTrailingWhitespace
-"				variable is not set. Return 0 instead of causing
-"				a function abort.
-"   1.00.004	06-Mar-2012	Toggle to value 2 when enabled but the buffer is
-"				filtered from showing trailing whitespace.
-"	003	05-Mar-2012	Introduce g:ShowTrailingWhitespace_FilterFunc to
-"				disable highlighting for non-persisted and
-"				nomodifiable buffers.
-"	002	02-Mar-2012	Introduce b:ShowTrailingWhitespace_ExtraPattern
-"				to be able to avoid some matches (e.g. a <Space>
-"				in column 1 in a buffer with filetype=diff) and
-"				ShowTrailingWhitespace#SetLocalExtraPattern() to
-"				set it.
-"	001	25-Feb-2012	file creation
 let s:save_cpo = &cpo
 set cpo&vim
 
