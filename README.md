@@ -154,6 +154,11 @@ https://github.com/inkarkat/vim-ShowTrailingWhitespace/issues or email
 HISTORY
 ------------------------------------------------------------------------------
 
+##### 1.10    RELEASEME
+- The default g:ShowTrailingWhitespace\_FilterFunc now also skips highlighting
+  in |terminal-window|s. Unfortunately, this requires a special hook, as the
+  'buftype' gets set too late.
+
 ##### 1.03    19-Mar-2015
 - Exempt the "unite" filetype used by the Unite plugin ([vimscript #3396](http://www.vim.org/scripts/script.php?script_id=3396)).
   Thanks to Fernando "Firef0x" G.P. da Silva for the patch.
