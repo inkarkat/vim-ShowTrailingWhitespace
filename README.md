@@ -1,0 +1,182 @@
+SHOW TRAILING WHITESPACE
+===============================================================================
+_by Ingo Karkat_
+
+DESCRIPTION
+------------------------------------------------------------------------------
+
+This plugin highlights whitespace at the end of each line (except when typing
+at the end of a line). It uses the matchadd()-function, therefore doesn't
+interfere with syntax highlighting and leaves the :match command for other
+uses.
+Highlighting can be switched on/off globally and for individual buffers. The
+plugin comes with exceptions for certain filetypes, where certain lines can /
+must include trailing whitespace; additional patterns can be configured.
+
+### SEE ALSO
+
+Many plugins also come with a command to strip off the trailing whitespace;
+this plugin separates this into the companion DeleteTrailingWhitespace.vim
+plugin ([vimscript #3967](http://www.vim.org/scripts/script.php?script_id=3967)), which can even remove the trailing whitespace
+automatically on each write.
+
+To quickly locate the occurrences of trailing whitespace, you can use the
+companion JumpToTrailingWhitespace.vim plugin ([vimscript #3968](http://www.vim.org/scripts/script.php?script_id=3968)).
+
+### RELATED WORKS
+
+There are already a number of plugins for this purpose, most based on this
+VimTip:
+    http://vim.wikia.com/wiki/Highlight_unwanted_spaces
+However, most of them use the older :match command and are not as flexible.
+- smartmatcheol.vim ([vimscript #2635](http://www.vim.org/scripts/script.php?script_id=2635)) highlights based on file extension or
+  name.
+- trailing-whitespace ([vimscript #3201](http://www.vim.org/scripts/script.php?script_id=3201)) uses :match.
+- bad-whitespace ([vimscript #3735](http://www.vim.org/scripts/script.php?script_id=3735)) uses :match, allows on/off/toggling via
+  commands.
+- Trailer Trash ([vimscript #3938](http://www.vim.org/scripts/script.php?script_id=3938)) uses :match.
+- DynamicSigns ([vimscript #3965](http://www.vim.org/scripts/script.php?script_id=3965)) can show whitespace errors (also mixed
+  indent) in the sign column.
+- better-whitespace ([vimscript #4859](http://www.vim.org/scripts/script.php?script_id=4859)) can use either :match or :syntax (with
+  the option of excluding the current line), and has a :StripWhitespace
+  command, also automatic triggering for some filetypes.
+- ShowSpaces ([vimscript #5148](http://www.vim.org/scripts/script.php?script_id=5148)) highlights spaces inside indentation, per
+  buffer / filetype.
+
+USAGE
+------------------------------------------------------------------------------
+
+    By default, trailing whitespace is highlighted in all Vim buffers. Some users
+    may want to selectively enable / disable this for certain filetypes, or files
+    in a particular directory hierarchy, or toggle this on demand. Since it's
+    difficult to accommodate all these demands with short and easy mappings and
+    commands, this plugin does not define any of them, and leaves it to you to
+    tailor the plugin to your needs. See ShowTrailingWhitespace-configuration
+    below.
+
+INSTALLATION
+------------------------------------------------------------------------------
+
+The code is hosted in a Git repo at
+    https://github.com/inkarkat/vim-ShowTrailingWhitespace
+You can use your favorite plugin manager, or "git clone" into a directory used
+for Vim packages. Releases are on the "stable" branch, the latest unstable
+development snapshot on "master".
+
+This script is also packaged as a vimball. If you have the "gunzip"
+decompressor in your PATH, simply edit the \*.vmb.gz package in Vim; otherwise,
+decompress the archive first, e.g. using WinZip. Inside Vim, install by
+sourcing the vimball or via the :UseVimball command.
+
+    vim ShowTrailingWhitespace*.vmb.gz
+    :so %
+
+To uninstall, use the :RmVimball command.
+
+### DEPENDENCIES
+
+- Requires Vim 7.1 with "matchadd()", or Vim 7.2 or higher.
+
+CONFIGURATION
+------------------------------------------------------------------------------
+
+For a permanent configuration, put the following commands into your vimrc:
+
+To change the highlighting colors (do this after any :colorscheme):
+
+    highlight ShowTrailingWhitespace ctermbg=Red guibg=Red
+
+By default, highlighting is enabled for all buffers, and you can (selectively)
+disable it. To work from the opposite premise, launch Vim with highlighting
+disabled:
+
+    let g:ShowTrailingWhitespace = 0
+
+In addition to toggling the highlighting on/off via
+g:ShowTrailingWhitespace, the decision can also be influenced by buffer
+settings or the environment. By default, buffers that are not persisted to
+disk (unless they are explicitly marked as "[Scratch]" buffers) or not
+modifiable (like user interface windows from various plugins, but note that
+clearing the option is usually done too late) are skipped. You can disable
+this filtering:
+
+    let g:ShowTrailingWhitespace_FilterFunc = ''
+
+or install your own custom filter function instead:
+
+    let g:ShowTrailingWhitespace_FilterFunc = function('MyFunc')
+
+Highlighting can be enabled / disabled globally and for individual buffers.
+Analog to the :set and :setlocal commands, you can define the following
+commands:
+
+    command! -bar ShowTrailingWhitespaceOn          call ShowTrailingWhitespace#Set(1,1)
+    command! -bar ShowTrailingWhitespaceOff         call ShowTrailingWhitespace#Set(0,1)
+    command! -bar ShowTrailingWhitespaceBufferOn    call ShowTrailingWhitespace#Set(1,0)
+    command! -bar ShowTrailingWhitespaceBufferOff   call ShowTrailingWhitespace#Set(0,0)
+
+To set the local highlighting back to its global value (like :set {option}<
+does), the following command can be defined:
+
+    command! -bar ShowTrailingWhitespaceBufferClear call ShowTrailingWhitespace#Reset()
+
+You can also define a quick mapping to toggle the highlighting (here, locally;
+for global toggling use ShowTrailingWhitespace#Toggle(1):
+
+    nnoremap <silent> <Leader>t$ :<C-u>call ShowTrailingWhitespace#Toggle(0)<Bar>echo (ShowTrailingWhitespace#IsSet() ? 'Show trailing whitespace' : 'Not showing trailing whitespace')<CR>
+
+For some filetypes, in certain places, trailing whitespace is part of the
+syntax or even mandatory. If you don't want to be bothered by these showing up
+as false positives, you can augment the regular expression so that these
+places do not match. The ShowTrailingWhitespace#SetLocalExtraPattern()
+function takes a regular expression that is prepended to the pattern for the
+trailing whitespace ('\s\+\%#\@<!$' in insert mode, '\s\+$' otherwise).
+For a certain filetype, this is best set in a file
+    ftplugin/{filetype}_ShowTrailingWhitespace.vim
+
+INTEGRATION
+------------------------------------------------------------------------------
+
+The ShowTrailingWhitespace#IsSet() function can be used to query the on/off
+status for the current buffer, e.g. for use in the statusline.
+
+To obtain the pattern for matching trailing whitespace, including any
+ShowTrailingWhitespace-exceptions, you can use the function
+ShowTrailingWhitespace#Pattern(0).
+
+CONTRIBUTING
+------------------------------------------------------------------------------
+
+Report any bugs, send patches, or suggest features via the issue tracker at
+https://github.com/inkarkat/vim-ShowTrailingWhitespace/issues or email
+(address below).
+
+HISTORY
+------------------------------------------------------------------------------
+
+##### 1.03    19-Mar-2015
+- Exempt the "unite" filetype used by the Unite plugin ([vimscript #3396](http://www.vim.org/scripts/script.php?script_id=3396)).
+  Thanks to Fernando "Firef0x" G.P. da Silva for the patch.
+
+##### 1.02    08-Mar-2015
+- Add whitespace exception for the "markdown" filetype.
+- Make ShowTrailingWhitespace#IsSet() also handle Vim 7.0/1 where the
+  g:ShowTrailingWhitespace variable is not set. Return 0 instead of causing a
+  function abort.
+- ENH: Keep previous (last accessed) window on :windo.
+
+##### 1.01    14-Dec-2013
+- Minor: Also exclude quickfix and help buffers from detection.
+- Add whitespace exception for the "dosbatch" filetype.
+
+##### 1.00    16-Mar-2012
+- First published version.
+
+##### 0.01    25-Feb-2012
+- Started development.
+
+------------------------------------------------------------------------------
+Copyright: (C) 2012-2018 Ingo Karkat -
+The [VIM LICENSE](http://vimdoc.sourceforge.net/htmldoc/uganda.html#license) applies to this plugin.
+
+Maintainer:     Ingo Karkat <ingo@karkat.de>
