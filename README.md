@@ -76,6 +76,8 @@ To uninstall, use the :RmVimball command.
 ### DEPENDENCIES
 
 - Requires Vim 7.1 with "matchadd()", or Vim 7.2 or higher.
+- ingo-library.vim plugin ([vimscript #4433](http://www.vim.org/scripts/script.php?script_id=4433)), version 1.036 or higher
+  (optional, required only for ShowTrailingWhitespace-blacklist).
 
 CONFIGURATION
 ------------------------------------------------------------------------------
@@ -105,6 +107,17 @@ this filtering:
 or install your own custom filter function instead:
 
     let g:ShowTrailingWhitespace_FilterFunc = function('MyFunc')
+
+The default filter also checks two blacklists:
+- \*g:ShowTrailingWhitespace\_Blacklist\* (valid for the current Vim session)
+- \*g:SHOWTRAILINGWHITESPACE\_BLACKLIST\* (persisted across Vim sessions)
+You can define your own commands or mappings to add or remove the current file
+to that blacklist:
+ <!-- -->
+
+    command! -bar ShowTrailingWhitespaceBlacklistForSession  call ShowTrailingWhitespace#Filter#BlacklistFile(0)
+    command! -bar ShowTrailingWhitespaceBlacklistPermanently call ShowTrailingWhitespace#Filter#BlacklistFile(1)
+    command! -bar ShowTrailingWhitespaceBlacklistRemoveFile  call ShowTrailingWhitespace#Filter#RemoveFileFromBlacklist()
 
 Highlighting can be enabled / disabled globally and for individual buffers.
 Analog to the :set and :setlocal commands, you can define the following
@@ -158,6 +171,13 @@ HISTORY
 - The default g:ShowTrailingWhitespace\_FilterFunc now also skips highlighting
   in |terminal-window|s. Unfortunately, this requires a special hook, as the
   'buftype' gets set too late.
+- ENH: Make the default filter also consider session-local and persistent
+  blacklists for files where highlighting should be off. Offer public
+  functions to implement custom commands or mappings for blacklist management.
+  See ShowTrailingWhitespace-blacklist for details.
+
+__You need to separately install ingo-library ([vimscript #4433](http://www.vim.org/scripts/script.php?script_id=4433)) version
+  1.036 (or higher) in order to use the blacklist feature!__
 
 ##### 1.03    19-Mar-2015
 - Exempt the "unite" filetype used by the Unite plugin ([vimscript #3396](http://www.vim.org/scripts/script.php?script_id=3396)).
@@ -181,7 +201,7 @@ HISTORY
 - Started development.
 
 ------------------------------------------------------------------------------
-Copyright: (C) 2012-2018 Ingo Karkat -
+Copyright: (C) 2012-2019 Ingo Karkat -
 The [VIM LICENSE](http://vimdoc.sourceforge.net/htmldoc/uganda.html#license) applies to this plugin.
 
 Maintainer:     Ingo Karkat <ingo@karkat.de>
