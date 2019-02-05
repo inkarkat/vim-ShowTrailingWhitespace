@@ -42,12 +42,12 @@ function! s:IsBlacklisted()
     return s:IsContainedInSessionBlacklist(l:filespec) || s:IsContainedInPersistedBlacklist(l:filespec)
 endfunction
 function! ShowTrailingWhitespace#Filter#BlacklistFile( isPermanent )
-    let l:filespec = s:GetFilespec()
-    if empty(l:filespec)
+    if empty(bufname(''))
 	call ingo#msg#ErrorMsg('Cannot add unnamed buffer to blacklist')
 	return 0
     endif
 
+    let l:filespec = s:GetFilespec()
     if a:isPermanent
 	if ! ingo#plugin#persistence#Add('SHOWTRAILINGWHITESPACE_BLACKLIST', l:filespec, 1)
 	    call ingo#msg#WarningMsg("Cannot persist marks, need ! flag in 'viminfo': :set viminfo+=!")
