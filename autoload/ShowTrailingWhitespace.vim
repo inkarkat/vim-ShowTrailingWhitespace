@@ -2,7 +2,7 @@
 "
 " DEPENDENCIES:
 "
-" Copyright: (C) 2012-2018 Ingo Karkat
+" Copyright: (C) 2012-2019 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
@@ -39,7 +39,7 @@ function! s:DetectAll()
     let l:originalWindowLayout = winrestcmd()
 	let l:originalWinNr = winnr()
 	let l:previousWinNr = winnr('#') ? winnr('#') : 1
-	    noautocmd windo call ShowTrailingWhitespace#Detect(0)
+	    noautocmd keepjumps windo call ShowTrailingWhitespace#Detect(0)
 	noautocmd execute l:previousWinNr . 'wincmd w'
 	noautocmd execute l:originalWinNr . 'wincmd w'
     silent! execute l:originalWindowLayout

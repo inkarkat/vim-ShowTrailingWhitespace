@@ -175,6 +175,7 @@ HISTORY
   blacklists for files where highlighting should be off. Offer public
   functions to implement custom commands or mappings for blacklist management.
   See ShowTrailingWhitespace-blacklist for details.
+- FIX: Avoid creating jump when enabling / setting a local extra pattern.
 
 __You need to separately install ingo-library ([vimscript #4433](http://www.vim.org/scripts/script.php?script_id=4433)) version
   1.036 (or higher) in order to use the blacklist feature!__
