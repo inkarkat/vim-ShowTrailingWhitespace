@@ -1,16 +1,11 @@
 " mail_ShowTrailingWhitespace.vim: Whitespace exceptions for the "mail" filetype.
 "
 " DEPENDENCIES:
-"   - ShowTrailingWhitespace.vim autoload script
 "
-" Copyright: (C) 2012 Ingo Karkat
+" Copyright: (C) 2012-2020 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
-"
-" REVISION	DATE		REMARKS
-"   1.00.002	16-Mar-2012	Refined pattern.
-"	001	03-Mar-2012	file creation
 
 " - The email signature separator consists of dash-dash-space.
 " - Email headers from Outlook or the Thunderbird "External Editor" add-on
