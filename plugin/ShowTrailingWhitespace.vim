@@ -1,10 +1,8 @@
 " ShowTrailingWhitespace.vim: Detect unwanted whitespace at the end of lines.
 "
 " DEPENDENCIES:
-"   - ShowTrailingWhitespace.vim autoload script.
-"   - ShowTrailingWhitespace/Filter.vim autoload script.
 "
-" Copyright: (C) 2012-2018 Ingo Karkat
+" Copyright: (C) 2012-2020 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>

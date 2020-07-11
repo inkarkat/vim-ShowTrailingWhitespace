@@ -189,7 +189,7 @@ https://github.com/inkarkat/vim-ShowTrailingWhitespace/issues or email
 HISTORY
 ------------------------------------------------------------------------------
 
-##### 1.10    RELEASEME
+##### 1.10    11-Jul-2020
 - The default g:ShowTrailingWhitespace\_FilterFunc now also skips highlighting
   in |terminal-window|s. Unfortunately, this requires a special hook, as the
   'buftype' gets set too late.
