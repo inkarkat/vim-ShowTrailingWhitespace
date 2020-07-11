@@ -94,6 +94,15 @@ disabled:
 
     let g:ShowTrailingWhitespace = 0
 
+With regards to exceptions, the plugin offers multiple approaches: The most
+generic is a filter function where your code tells the plugin whether it
+should check or ignore. By default, the plugin uses this to offer a file-based
+set of blacklists, one persisted and one only for the current session.
+Alternatively, you can use Vim's built-in functionality like :autocmd or
+filetype-plugins, and invoke plugin function to enable / disable it from
+there. These plugin functions can also be used to define custom toggle
+commands or mappings, allowing you to interactively control the plugin.
+
 In addition to toggling the highlighting on/off via
 g:ShowTrailingWhitespace, the decision can also be influenced by buffer
 settings or the environment. By default, buffers that are not persisted to
@@ -128,7 +137,7 @@ commands:
     command! -bar ShowTrailingWhitespaceBufferOn    call ShowTrailingWhitespace#Set(1,0)
     command! -bar ShowTrailingWhitespaceBufferOff   call ShowTrailingWhitespace#Set(0,0)
 
-To set the local highlighting back to its global value (like :set {option}<
+To set the local highlighting back to its global value (like :set {option}&lt;
 does), the following command can be defined:
 
     command! -bar ShowTrailingWhitespaceBufferClear call ShowTrailingWhitespace#Reset()
@@ -136,16 +145,29 @@ does), the following command can be defined:
 You can also define a quick mapping to toggle the highlighting (here, locally;
 for global toggling use ShowTrailingWhitespace#Toggle(1):
 
-    nnoremap <silent> <Leader>t$ :<C-u>call ShowTrailingWhitespace#Toggle(0)<Bar>echo (ShowTrailingWhitespace#IsSet() ? 'Show trailing whitespace' : 'Not showing trailing whitespace')<CR>
+    nnoremap <silent> <Leader>t$ :<C-u>call ShowTrailingWhitespace#Toggle(0)<Bar>
+    \ echo (ShowTrailingWhitespace#IsSet() ?
+    \   'Show trailing whitespace' :
+    \   'Not showing trailing whitespace')<CR>
 
-For some filetypes, in certain places, trailing whitespace is part of the
-syntax or even mandatory. If you don't want to be bothered by these showing up
-as false positives, you can augment the regular expression so that these
-places do not match. The ShowTrailingWhitespace#SetLocalExtraPattern()
-function takes a regular expression that is prepended to the pattern for the
-trailing whitespace ('\s\+\%#\@<!$' in insert mode, '\s\+$' otherwise).
-For a certain filetype, this is best set in a file
-    ftplugin/{filetype}_ShowTrailingWhitespace.vim
+For some filetypes, trailing whitespace is part of the syntax or even
+mandatory. To disable the plugin for a filetype, put the following in a file
+named e.g. ftplugin/{filetype}\_ShowTrailingWhitespace.vim:
+
+    if ShowTrailingWhitespace#IsSet()
+        call ShowTrailingWhitespace#Set(0,0)
+    endif
+
+The plugin already ships with some common exceptions; you can submit yours,
+too!
+
+Some filetypes need trailing whitespace only in certain places. If you don't
+want to be bothered by these showing up as false positives, you may be able to
+augment the regular expression so that these places do not match. The
+ShowTrailingWhitespace#SetLocalExtraPattern() function takes a regular
+expression that is prepended to the pattern for the trailing whitespace
+('\\s\\+\\%#\\@&lt;!$' in insert mode, '\\s\\+$' otherwise). For a certain filetype,
+this is best set in a file ftplugin/{filetype}\_ShowTrailingWhitespace.vim.
 
 INTEGRATION
 ------------------------------------------------------------------------------
@@ -202,7 +224,7 @@ __You need to separately install ingo-library ([vimscript #4433](http://www.vim.
 - Started development.
 
 ------------------------------------------------------------------------------
-Copyright: (C) 2012-2019 Ingo Karkat -
+Copyright: (C) 2012-2020 Ingo Karkat -
 The [VIM LICENSE](http://vimdoc.sourceforge.net/htmldoc/uganda.html#license) applies to this plugin.
 
-Maintainer:     Ingo Karkat <ingo@karkat.de>
+Maintainer:     Ingo Karkat &lt;ingo@karkat.de&gt;
