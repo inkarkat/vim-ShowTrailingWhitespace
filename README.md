@@ -189,6 +189,10 @@ https://github.com/inkarkat/vim-ShowTrailingWhitespace/issues or email
 HISTORY
 ------------------------------------------------------------------------------
 
+##### 1.11    RELEASEME
+- Neovim does not have the TerminalOpen event; don't use it then, to avoid
+  startup errors. (Patch by subnut.)
+
 ##### 1.10    11-Jul-2020
 - The default g:ShowTrailingWhitespace\_FilterFunc now also skips highlighting
   in |terminal-window|s. Unfortunately, this requires a special hook, as the

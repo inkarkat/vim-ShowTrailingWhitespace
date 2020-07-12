@@ -3,7 +3,7 @@
 " DEPENDENCIES:
 "   - ingo-library.vim plugin (optional)
 "
-" Copyright: (C) 2012-2019 Ingo Karkat
+" Copyright: (C) 2012-2020 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
@@ -106,7 +106,7 @@ function! ShowTrailingWhitespace#Filter#Default()
 endfunction
 
 
-if v:version == 800 && has('patch1596') || v:version > 800
+if ! has('nvim') && (v:version == 800 && has('patch1596') || v:version > 800)
     augroup ShowTrailingWhitespace
 	autocmd! TerminalOpen * call ShowTrailingWhitespace#Detect(0)
 	" The filter will detect that 'buftype' is "terminal", so it's not one
