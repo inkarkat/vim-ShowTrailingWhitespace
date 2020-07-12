@@ -107,12 +107,16 @@ endfunction
 
 
 if v:version == 800 && has('patch1596') || v:version > 800
-    augroup ShowTrailingWhitespace
-	autocmd! TerminalOpen * call ShowTrailingWhitespace#Detect(0)
-	" The filter will detect that 'buftype' is "terminal", so it's not one
-	" of the persisted ones. Unfortunately, Vim first creates a normal empty
-	" buffer (with 'buftype' empty), and only later changes the option.
-    augroup END
+    if has('nvim')
+    else
+	augroup ShowTrailingWhitespace
+	    autocmd! TerminalOpen * call ShowTrailingWhitespace#Detect(0)
+	    " The filter will detect that 'buftype' is "terminal", so it's not one
+	    " of the persisted ones. Unfortunately, Vim first creates a normal empty
+	    " buffer (with 'buftype' empty), and only later changes the option.
+	augroup END
+    endif
 endif
+
 
 " vim: set ts=8 sts=4 sw=4 noexpandtab ff=unix fdm=syntax :
