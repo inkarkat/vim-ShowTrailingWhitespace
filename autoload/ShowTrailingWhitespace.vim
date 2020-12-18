@@ -13,7 +13,7 @@ function! ShowTrailingWhitespace#Pattern( isInsertMode )
     return (exists('b:ShowTrailingWhitespace_ExtraPattern') ? b:ShowTrailingWhitespace_ExtraPattern : '') .
     \	(a:isInsertMode ? '\s\+\%#\@<!$' : '\s\+$')
 endfunction
-let s:HlGroupName = 'ShowTrailingWhitespace'
+let s:HlGroupName = '_ShowTrailingWhitespace'
 function! s:UpdateMatch( isInsertMode )
     let l:pattern = ShowTrailingWhitespace#Pattern(a:isInsertMode)
     if exists('w:ShowTrailingWhitespace_Match')

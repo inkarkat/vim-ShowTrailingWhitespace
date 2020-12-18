@@ -39,5 +39,24 @@ augroup END
 "- highlight groups ------------------------------------------------------------
 
 highlight def link ShowTrailingWhitespace Error
+highlight def _ShowTrailingWhitespace gui=none cterm=none
+function! ShowTrailingWhitespaceUpdateHighlight()
+    for l:mode in ['cterm', 'gui']
+	let l:error_background = synIDattr(synIDtrans(hlID('ShowTrailingWhitespace')), 'bg', l:mode)
+	if empty(l:error_background) || synIDattr(synIDtrans(hlID('ShowTrailingWhitespace')), 'reverse', l:mode)
+	    " bg is empty, or 'reverse' is set.
+	    " Use fg.
+	    let l:error_background = synIDattr(synIDtrans(hlID('ShowTrailingWhitespace')), 'fg', l:mode)
+	endif
+	if empty(l:error_background) || l:error_background ==? synIDattr(synIDtrans(hlID('Normal')), 'bg', l:mode)
+	    " Still empty or same as Normal bg.
+	    " Just default to red.
+	    let l:error_background = 'red'
+	endif
+	execute 'highlight _ShowTrailingWhitespace ' . l:mode .'bg=' . l:error_background
+    endfor
+endfunction
+call ShowTrailingWhitespaceUpdateHighlight()
+autocmd ShowTrailingWhitespace Colorscheme * call ShowTrailingWhitespaceUpdateHighlight()
 
 " vim: set ts=8 sts=4 sw=4 noexpandtab ff=unix fdm=syntax :
