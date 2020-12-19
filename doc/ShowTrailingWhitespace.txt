@@ -210,6 +210,12 @@ HISTORY					      *ShowTrailingWhitespace-history*
 - Neovim does not have the TerminalOpen event; don't use it then, to avoid
   startup errors. (Patch by subnut.)
 - Exempt the "xxd" filetype used e.g. by the Hexman plugin (vimscript #666).
+- ENH: The plugin now inspects the linked highlight group and switches to its
+  foreground color if your chosen colorscheme does not define a background
+  color there, to avoid that no trailing whitespace highlighting can be seen.
+  This logic can be disabled through
+  g:ShowTrailingWhitespace_IsAutomaticBackground. Thanks to subnut for raising
+  this issue and providing a suggestion on how to fix that.
 
 1.10	11-Jul-2020
 - The default g:ShowTrailingWhitespace_FilterFunc now also skips highlighting
