@@ -35,11 +35,13 @@ augroup ShowTrailingWhitespace
     autocmd!
     autocmd BufWinEnter,InsertLeave * call ShowTrailingWhitespace#Detect(0)
     autocmd InsertEnter             * call ShowTrailingWhitespace#Detect(1)
+    autocmd ColorScheme             * call ShowTrailingWhitespace#Color#EnsureVisibleBackgroundColor()
 augroup END
 
 
 "- highlight groups ------------------------------------------------------------
 
 execute printf('highlight def link %s Error', g:ShowTrailingWhitespace#HighlightGroup)
+call ShowTrailingWhitespace#Color#EnsureVisibleBackgroundColor()
 
 " vim: set ts=8 sts=4 sw=4 noexpandtab ff=unix fdm=syntax :
