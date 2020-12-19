@@ -15,6 +15,8 @@ let g:loaded_ShowTrailingWhitespace = 1
 
 "- configuration ---------------------------------------------------------------
 
+let g:ShowTrailingWhitespace#HighlightGroup = 'ShowTrailingWhitespace'
+
 if ! exists('g:ShowTrailingWhitespace')
     let g:ShowTrailingWhitespace = 1
 endif
@@ -38,6 +40,6 @@ augroup END
 
 "- highlight groups ------------------------------------------------------------
 
-highlight def link ShowTrailingWhitespace Error
+execute printf('highlight def link %s Error', g:ShowTrailingWhitespace#HighlightGroup)
 
 " vim: set ts=8 sts=4 sw=4 noexpandtab ff=unix fdm=syntax :
