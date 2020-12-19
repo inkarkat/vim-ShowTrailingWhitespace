@@ -192,6 +192,7 @@ HISTORY
 ##### 1.11    RELEASEME
 - Neovim does not have the TerminalOpen event; don't use it then, to avoid
   startup errors. (Patch by subnut.)
+- Exempt the "xxd" filetype used e.g. by the Hexman plugin ([vimscript #666](http://www.vim.org/scripts/script.php?script_id=666)).
 
 ##### 1.10    11-Jul-2020
 - The default g:ShowTrailingWhitespace\_FilterFunc now also skips highlighting
