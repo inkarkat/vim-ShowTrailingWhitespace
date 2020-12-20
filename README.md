@@ -207,7 +207,8 @@ HISTORY
   color there, to avoid that no trailing whitespace highlighting can be seen.
   This logic can be disabled through
   g:ShowTrailingWhitespace\_IsAutomaticBackground. Thanks to subnut for raising
-  this issue and providing a suggestion on how to fix that.
+  this issue, providing a suggestion on how to fix that and a patch for Neovim
+  compatibility.
 
 ##### 1.10    11-Jul-2020
 - The default g:ShowTrailingWhitespace\_FilterFunc now also skips highlighting
