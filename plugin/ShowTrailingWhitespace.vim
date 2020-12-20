@@ -47,8 +47,19 @@ augroup END
 execute printf('highlight def link %s Error', g:ShowTrailingWhitespace#HighlightGroup)
 
 if g:ShowTrailingWhitespace_IsAutomaticBackground
-    call ShowTrailingWhitespace#Color#EnsureVisibleBackgroundColor()
-    autocmd ShowTrailingWhitespace ColorScheme * call ShowTrailingWhitespace#Color#EnsureVisibleBackgroundColor()
+    let g:ShowTrailingWhitespace_LinkedSyntaxId = synIDtrans(hlID(g:ShowTrailingWhitespace#HighlightGroup))
+    if g:ShowTrailingWhitespace_LinkedSyntaxId == hlID(g:ShowTrailingWhitespace#HighlightGroup)
+	" The highlight group is not linked; i.e. the user set up their own
+	" custom highlighting. They are responsible that this is visible.
+    else
+	" Especially the default linked highlight group may (depending on the
+	" colorscheme) not have a visible background color. In that case, we
+	" should take the foreground color as the background color instead, so
+	" that the trailing whitespace (that, being whitespace, has no visible
+	" foreground color, unless we've :set list) actually shows up.
+	call ShowTrailingWhitespace#Color#EnsureVisibleBackgroundColor()
+	autocmd ShowTrailingWhitespace ColorScheme * call ShowTrailingWhitespace#Color#EnsureVisibleBackgroundColor()
+    endif
 endif
 
 " vim: set ts=8 sts=4 sw=4 noexpandtab ff=unix fdm=syntax :

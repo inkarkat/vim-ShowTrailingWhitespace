@@ -46,27 +46,23 @@ function! s:HasVisibleBackground( syntaxId ) abort
     return 1
 endfunction
 
+let s:didAutomaticBackground = 0
 function! ShowTrailingWhitespace#Color#EnsureVisibleBackgroundColor() abort
-    let l:linkedSyntaxId = synIDtrans(hlID(g:ShowTrailingWhitespace#HighlightGroup))
-    if l:linkedSyntaxId == hlID(g:ShowTrailingWhitespace#HighlightGroup)
-	" The highlight group is not linked; i.e. the user set up their own
-	" custom highlighting. They are responsible that this is visible.
-	return
-    endif
-
-    " Especially the default linked highlight group may (depending on the
-    " colorscheme) not have a visible background color. In that case, we should
-    " take the foreground color as the background color instead, so that the
-    " trailing whitespace (that, being whitespace, has no visible foreground
-    " color, unless we've :set list) actually shows up.
-    if s:HasVisibleBackground(l:linkedSyntaxId)
+    if s:HasVisibleBackground(g:ShowTrailingWhitespace_LinkedSyntaxId)
+	if s:didAutomaticBackground
+	    " Restore the original link that had been automatically adapted for
+	    " a previous colorscheme that did not define a background color.
+	    execute printf('highlight link %s %s', g:ShowTrailingWhitespace#HighlightGroup, synIDattr(g:ShowTrailingWhitespace_LinkedSyntaxId, 'name'))
+	    let s:didAutomaticBackground = 0
+	endif
 	return
     endif
 
     for l:mode in s:GetColorModes()
-	let l:color = s:GetForegroundColor(l:linkedSyntaxId, l:mode)
+	let l:color = s:GetForegroundColor(g:ShowTrailingWhitespace_LinkedSyntaxId, l:mode)
 	if ! empty(l:color)
 	    execute printf('highlight %s %sbg=%s', g:ShowTrailingWhitespace#HighlightGroup, l:mode, l:color)
+	    let s:didAutomaticBackground = 1
 	endif
     endfor
 endfunction
