@@ -25,8 +25,10 @@ function! s:GetColorModes() abort
     if has('gui_running')
 	" Can't get back from GUI to terminal.
 	return ['gui']
-    elseif has('gui')
+    elseif has('gui') || has('nvim')
 	" This terminal may be upgraded to the GUI via :gui.
+	" Neovim uses cterm or gui depending on &termguicolors, and can be
+	" changed whenever the user wishes to.
 	return ['cterm', 'gui']
     else
 	" This terminal doesn't have GUI capabilities built in.
