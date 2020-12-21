@@ -198,7 +198,7 @@ https://github.com/inkarkat/vim-ShowTrailingWhitespace/issues or email
 HISTORY
 ------------------------------------------------------------------------------
 
-##### 1.11    RELEASEME
+##### 1.11    21-Dec-2020
 - Neovim does not have the TerminalOpen event; don't use it then, to avoid
   startup errors. (Patch by subnut.)
 - Exempt the "xxd" filetype used e.g. by the Hexman plugin ([vimscript #666](http://www.vim.org/scripts/script.php?script_id=666)).
