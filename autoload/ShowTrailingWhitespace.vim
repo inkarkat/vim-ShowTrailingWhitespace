@@ -2,7 +2,7 @@
 "
 " DEPENDENCIES:
 "
-" Copyright: (C) 2012-2019 Ingo Karkat
+" Copyright: (C) 2012-2020 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
@@ -13,16 +13,15 @@ function! ShowTrailingWhitespace#Pattern( isInsertMode )
     return (exists('b:ShowTrailingWhitespace_ExtraPattern') ? b:ShowTrailingWhitespace_ExtraPattern : '') .
     \	(a:isInsertMode ? '\s\+\%#\@<!$' : '\s\+$')
 endfunction
-let s:HlGroupName = 'ShowTrailingWhitespace'
 function! s:UpdateMatch( isInsertMode )
     let l:pattern = ShowTrailingWhitespace#Pattern(a:isInsertMode)
     if exists('w:ShowTrailingWhitespace_Match')
 	" Info: matchadd() does not consider the 'magic' (it's always on),
 	" 'ignorecase' and 'smartcase' settings.
 	silent! call matchdelete(w:ShowTrailingWhitespace_Match)
-	call matchadd(s:HlGroupName, pattern, -1, w:ShowTrailingWhitespace_Match)
+	call matchadd(g:ShowTrailingWhitespace#HighlightGroup, l:pattern, -1, w:ShowTrailingWhitespace_Match)
     else
-	let w:ShowTrailingWhitespace_Match =  matchadd(s:HlGroupName, pattern)
+	let w:ShowTrailingWhitespace_Match =  matchadd(g:ShowTrailingWhitespace#HighlightGroup, l:pattern)
     endif
 endfunction
 function! s:DeleteMatch()
@@ -94,4 +93,6 @@ function! ShowTrailingWhitespace#SetLocalExtraPattern( pattern )
     call s:DetectAll()
 endfunction
 
+let &cpo = s:save_cpo
+unlet s:save_cpo
 " vim: set ts=8 sts=4 sw=4 noexpandtab ff=unix fdm=syntax :

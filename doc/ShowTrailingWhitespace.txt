@@ -95,6 +95,13 @@ For a permanent configuration, put the following commands into your |vimrc|:
 					       *ShowTrailingWhitespace-colors*
 To change the highlighting colors (do this after any |:colorscheme|): >
     highlight ShowTrailingWhitespace ctermbg=Red guibg=Red
+The default highlighting links to the "Error" highlight group.
+			      *g:ShowTrailingWhitespace_IsAutomaticBackground*
+As a background color is needed to highlight the whitespace, the plugin
+inspects the linked highlight group and switches to its foreground color if
+your chosen colorscheme does not define a background color there. You can turn
+off this logic via: >
+    let g:ShowTrailingWhitespace_IsAutomaticBackground = 0
 <
 						    *g:ShowTrailingWhitespace*
 By default, highlighting is enabled for all buffers, and you can (selectively)
@@ -198,6 +205,18 @@ https://github.com/inkarkat/vim-ShowTrailingWhitespace/issues or email
 
 ==============================================================================
 HISTORY					      *ShowTrailingWhitespace-history*
+
+1.11	21-Dec-2020
+- Neovim does not have the TerminalOpen event; don't use it then, to avoid
+  startup errors. (Patch by subnut.)
+- Exempt the "xxd" filetype used e.g. by the Hexman plugin (vimscript #666).
+- ENH: The plugin now inspects the linked highlight group and switches to its
+  foreground color if your chosen colorscheme does not define a background
+  color there, to avoid that no trailing whitespace highlighting can be seen.
+  This logic can be disabled through
+  g:ShowTrailingWhitespace_IsAutomaticBackground. Thanks to subnut for raising
+  this issue, providing a suggestion on how to fix that and a patch for Neovim
+  compatibility.
 
 1.10	11-Jul-2020
 - The default g:ShowTrailingWhitespace_FilterFunc now also skips highlighting
