@@ -7,6 +7,8 @@
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 
+" Note: Could use ingo#hlgroup#GetForegroundColor(), but avoid a hard dependency
+" to ingo-library for now.
 function! s:GetColor( isBackground, syntaxId, mode ) abort
     let l:attributes = ['fg', 'bg']
     if a:isBackground | call reverse(l:attributes) | endif
