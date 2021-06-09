@@ -8,23 +8,8 @@
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 
-function! s:GetColorModes() abort
-    if has('gui_running')
-	" Can't get back from GUI to terminal.
-	return ['gui']
-    elseif has('gui') || has('nvim')
-	" This terminal may be upgraded to the GUI via :gui.
-	" Neovim uses cterm or gui depending on &termguicolors, and can be
-	" changed whenever the user wishes to.
-	return ['cterm', 'gui']
-    else
-	" This terminal doesn't have GUI capabilities built in.
-	return ['cterm']
-    endif
-endfunction
-
 function! s:HasVisibleBackground( syntaxId ) abort
-    for l:mode in s:GetColorModes()
+    for l:mode in ingo#hlgroup#GetApplicableColorModes()
 	let l:backgroundColor = ingo#hlgroup#GetBackgroundColor(a:syntaxId, l:mode)
 	if empty(l:backgroundColor) || l:backgroundColor ==# ingo#hlgroup#GetBackgroundColor(hlID('Normal'), l:mode)
 	    return 0
@@ -45,7 +30,7 @@ function! ShowTrailingWhitespace#Color#EnsureVisibleBackgroundColor() abort
 	return
     endif
 
-    for l:mode in s:GetColorModes()
+    for l:mode in ingo#hlgroup#GetApplicableColorModes()
 	let l:color = ingo#hlgroup#GetForegroundColor(g:ShowTrailingWhitespace_LinkedSyntaxId, l:mode)
 	if ! empty(l:color)
 	    execute printf('highlight %s %sbg=%s', g:ShowTrailingWhitespace#HighlightGroup, l:mode, l:color)
