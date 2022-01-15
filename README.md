@@ -203,6 +203,8 @@ HISTORY
   win\_execute() (where available).
 - Add (hard, previously only optional) dependency to ingo-library (vimscript
   #4433).
+- diff filetype: Exclude patch instructions that just consist of # + single
+  space.
 
 ##### 1.11    21-Dec-2020
 - Neovim does not have the TerminalOpen event; don't use it then, to avoid
@@ -251,7 +253,7 @@ __You need to separately install ingo-library ([vimscript #4433](http://www.vim.
 - Started development.
 
 ------------------------------------------------------------------------------
-Copyright: (C) 2012-2021 Ingo Karkat -
+Copyright: (C) 2012-2022 Ingo Karkat -
 The [VIM LICENSE](http://vimdoc.sourceforge.net/htmldoc/uganda.html#license) applies to this plugin.
 
 Maintainer:     Ingo Karkat &lt;ingo@karkat.de&gt;
