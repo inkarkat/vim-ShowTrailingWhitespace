@@ -198,13 +198,16 @@ https://github.com/inkarkat/vim-ShowTrailingWhitespace/issues or email
 HISTORY
 ------------------------------------------------------------------------------
 
-##### 1.12    RELEASEME
+##### 1.12    01-Nov-2022
 - More robust and efficient iteration through visible windows through
   win\_execute() (where available).
 - Add (hard, previously only optional) dependency to ingo-library (vimscript
   #4433).
 - diff filetype: Exclude patch instructions that just consist of # + single
   space.
+
+__You need to separately install ingo-library ([vimscript #4433](http://www.vim.org/scripts/script.php?script_id=4433)) version
+  1.043 (or higher)!__
 
 ##### 1.11    21-Dec-2020
 - Neovim does not have the TerminalOpen event; don't use it then, to avoid
