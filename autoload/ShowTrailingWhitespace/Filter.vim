@@ -1,30 +1,16 @@
 " ShowTrailingWhitespace/Filter.vim: Exclude certain buffers from detection.
 "
 " DEPENDENCIES:
-"   - ingo-library.vim plugin (optional)
+"   - ingo-library.vim plugin
 "
-" Copyright: (C) 2012-2020 Ingo Karkat
+" Copyright: (C) 2012-2021 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 
-silent! call ingo#fs#path#DoesNotExist()	" Execute a function to force autoload.
-if exists('*ingo#fs#path#Canonicalize')
 function! s:GetFilespec()
     return ingo#fs#path#Canonicalize(expand('%:p'))
 endfunction
-function! s:IsPersistedBuffer()
-    return ingo#buffer#IsPersisted()
-endfunction
-else
-function! s:GetFilespec()
-    return expand('%:p')
-endfunction
-function! s:IsPersistedBuffer()
-    return (empty(&l:buftype) || &l:buftype ==# 'acwrite')
-endfunction
-endif
-
 
 function! s:IsContainedInSessionBlacklist( filespec )
     return exists('g:ShowTrailingWhitespace_Blacklist') && has_key(g:ShowTrailingWhitespace_Blacklist, a:filespec)
@@ -101,7 +87,7 @@ function! ShowTrailingWhitespace#Filter#Default()
 	return 0
     endif
 
-    let l:isShownNormally = &l:modifiable && ! &l:binary && (s:IsPersistedBuffer() || s:IsScratchBuffer())
+    let l:isShownNormally = &l:modifiable && ! &l:binary && (ingo#buffer#IsPersisted() || s:IsScratchBuffer())
     return l:isShownNormally || s:IsForcedShow()
 endfunction
 

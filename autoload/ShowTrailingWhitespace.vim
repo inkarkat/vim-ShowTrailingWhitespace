@@ -1,8 +1,9 @@
 " ShowTrailingWhitespace.vim: Detect unwanted whitespace at the end of lines.
 "
 " DEPENDENCIES:
+"   - ingo-library.vim plugin
 "
-" Copyright: (C) 2012-2020 Ingo Karkat
+" Copyright: (C) 2012-2021 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
@@ -32,16 +33,7 @@ function! s:DeleteMatch()
 endfunction
 
 function! s:DetectAll()
-    " By entering a window, its height is potentially increased from 0 to 1 (the
-    " minimum for the current window). To avoid any modification, save the window
-    " sizes and restore them after visiting all windows.
-    let l:originalWindowLayout = winrestcmd()
-	let l:originalWinNr = winnr()
-	let l:previousWinNr = winnr('#') ? winnr('#') : 1
-	    noautocmd keepjumps windo call ShowTrailingWhitespace#Detect(0)
-	noautocmd execute l:previousWinNr . 'wincmd w'
-	noautocmd execute l:originalWinNr . 'wincmd w'
-    silent! execute l:originalWindowLayout
+    call ingo#window#iterate#All(function('ShowTrailingWhitespace#Detect'), 0)
 endfunction
 
 function! ShowTrailingWhitespace#IsSet()
